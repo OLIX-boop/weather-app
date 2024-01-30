@@ -4,7 +4,7 @@ const Navbar = () => {
 
     return (
         <div className="w-full p-5">
-            <h1>LUCCHINATOR</h1>
+            <h1>Watermelon Park</h1>
         </div>
     )
 }
