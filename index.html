@@ -11,35 +11,70 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap" rel="stylesheet">
 
+    <script src="https://kit.fontawesome.com/948b3f0839.js" crossorigin="anonymous"></script>
     <style>
-      html, body, .background, #root, .main-container {
-        height: 100%;
+
+       body, html {
+        height: 100% !important;
+        min-height: 100% !important;
+        width: 100%;
         padding: 0;
         margin: 0;
         color: white;
         font-family: 'DM Sans', sans-serif;
         font-size: 1vw;
+      } 
 
-      }
+      #root {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background-repeat: no-repeat;
+        background: rgb(0,105,147);
+        background: linear-gradient(347deg, rgba(0,105,147,1) 0%, rgba(0,104,186,1) 35%, rgba(0,212,255,1) 100%);
+      } 
 
-      .main-container {
-        background: rgba(255, 0, 0, 0.185);
-      }
 
       .background {
-        background-image: url(./src/assets/backgrounds/rain_frame.jpg);
-        position: fixed;
-        left: 0;
-        right: 0;
-        z-index: -1;
-        display: block;
-        -webkit-filter: blur(10px);
-        -moz-filter: blur(10px);
-        -o-filter: blur(10px);
-        -ms-filter: blur(10px);
-        filter: blur(10px);
-        transform: scale(1.1);
+        display: grid;
+        grid-template-columns: 0.05fr 1fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
       }
+
+      .navbar {
+        background-color: rgba(34, 39, 45, 0.338);
+      }
+
+      .content {
+        background-color: rgba(34, 39, 45, 0.2);
+      }
+
+      .navbar > div > i:hover, .navbar > div > div > i:hover:not(:first-child) {
+        background-color: #183A62;
+        transition: .4s ease-in-out;
+      }
+
+      .navbar > div > i:not(:hover), .navbar > div > div > i:not(:hover):not(:first-child) {
+        background: none;
+        transition: .3s ease-in-out; 
+      }
+
+      .search {
+        background-color: rgba(34, 39, 45, 0.338);
+        border-radius: .7vh;
+
+      }
+      input[type="text"] {
+        background: none;
+      } 
+
+      input:focus {
+        outline: none;
+      }
+
     </style>
   </head>
   <body> 
