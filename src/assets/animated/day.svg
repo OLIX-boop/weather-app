@@ -6,6 +6,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     width="64"
     height="64"
+    style="transform: scale(2.5, 2.5)"
     viewbox="0 0 64 64">
     <defs>
         <filter id="blur" width="200%" height="200%">
