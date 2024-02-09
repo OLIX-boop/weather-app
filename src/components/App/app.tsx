@@ -6,9 +6,7 @@ import Forecast from "../dashboard/forecast/forecast";
 
 import { useGeolocated } from "react-geolocated";
 import { useEffect, useState } from "react";
-
-const apiKey = 'aced08b6dec57d16430925ce02d13539';
-let loadedOnce = false;
+import { weather_data } from '../../interfaces';
 
 const rand = (min:number, max:number):number => Math.floor(Math.random() * (max - min) + min);
 
@@ -22,23 +20,7 @@ const App = () => {
     let coordinates = { latitude: 45.464098, longitude: 9.191926}; // default coordinates
 
     const [weatherData, setWeatherData] = useState({});
-
     const [clouds, setClouds] = useState(initialclouds(7));
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setClouds([...clouds, {left: `${rand(10,20)}%`, top: `${rand(1,100)}%`, animation: `move ${rand(60, 100)}s infinite`}]);
-        }, 2000);
-        return () => clearInterval(interval);
-    });
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setClouds([...clouds.slice(1)])
-        }, 1000*100);
-        return () => clearInterval(interval);
-    });
-
 
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
@@ -56,35 +38,41 @@ const App = () => {
         };
 
     useEffect(() => {
-        if (loadedOnce) return;
+        const interval = setInterval(() => {
+            const time =rand(60, 100);
+            const index = clouds.length;
+            setClouds([...clouds, {left: `${rand(10,20)}%`, top: `${rand(1,100)}%`, animation: `move ${time}s infinite`}]);
+            setTimeout(() => {
+                clouds.splice(index, 1);
+            }, time);
+        }, 2000);
 
         const fetchData = async () => {
-
-            const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${apiKey}&units=metric`)
-
+            const api = `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current=surface_pressure,temperature_2m,wind_speed_10m,weather_code,cloud_cover,relative_humidity_2m,is_day`
+            
+            const response = await fetch(api);
             const data = await response.json();
-            console.log(data);
             setWeatherData(data);
         }
-        //fetchData()
+        fetchData();
 
-        loadedOnce = true;
-    });
+        return () => clearInterval(interval);
+    }, []);
 
 
     return (<>
-        <div className="background grid h-[80vh] w-[70vw] z-10">
+        <div className="background grid max-h-[80vh] w-[70vw] z-10">
             <Toolbar />
             <div className="content rounded-r-xl py-[4vh] px-[2.4vw]">
                 <Navbar/>
                 <div className="dashboard-vertical-grid grid h-[calc(100%-4vh)]">
                     <div className="dashboard-grid1 grid my-[2vh]">
-                        <CurrentWeather data={weatherData}/>
+                    <CurrentWeather data={weatherData as weather_data}/>
                         <h1>CIAO</h1>                                    
                         <PopularCities />                                   
                     </div>
-                    <div className="dashboard-grid2 grid bg-black">
-                        <Forecast/>      
+                    <div className="dashboard-grid2 grid">
+                        <Forecast coords={coordinates}/>      
                         <h1>CIAO</h1>                
                     </div>
                 </div>
@@ -92,7 +80,7 @@ const App = () => {
         </div>
 
         <div className="center">
-            {clouds.map(e => <div key={clouds.indexOf(e)} className={`cloud`} style={e}></div>)}
+            {/*clouds.map(e => <div key={clouds.indexOf(e)} className={`cloud`} style={e}></div>)*/}
         </div>
     </>)
 

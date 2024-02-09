@@ -8,7 +8,7 @@
     height="64"
     style="transform: scale(1.1, 1.1)"
     viewbox="0 0 64 64">
-    <defs>
+    <defs> 
         <filter id="blur" width="200%" height="200%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
             <feOffset dx="0" dy="4" result="offsetblur"/>
