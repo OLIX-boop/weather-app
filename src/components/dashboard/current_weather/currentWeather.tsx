@@ -4,13 +4,17 @@ import WeatherLoader from './loader';
 
 const CurrentWeather = ({ data }: {data:weather_data}) => {
 
-    const [time, setTime] = useState(`${new Date().getHours()}:${new Date().getMinutes()}`);
+    const [time, setTime] = useState(`${new Date().getHours()}:${new Date().getMinutes().toString().length === 1 ? '0'+new Date().getMinutes().toString(): new Date().getMinutes()}`);
     useEffect(() => {
         const interval = setInterval(() => {
-            setTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
+            let min = new Date().getMinutes().toString();
+            if (min.length === 1) min='0'+min;
+            setTime(`${new Date().getHours()}:${min}`);
         }, 1000);
         return () => clearInterval(interval);
       }, []);
+
+      
     if (Object.keys(data).length === 0) return <WeatherLoader/>;
 
     return (<div className="dashboard-grid3 grid bg-color p-[2vh] rounded-[1vw]">

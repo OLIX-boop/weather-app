@@ -1,7 +1,5 @@
-const fetchData = async (api:string) => {
+export async function fetchData<T>(api: string, setState: React.Dispatch<React.SetStateAction<T>>): Promise<void> {
     const response = await fetch(api);
     const data = await response.json();
-    return data;
-} // da finire
-
-export default fetchData;
+    setState(data);
+}

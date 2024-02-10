@@ -1,6 +1,5 @@
 import { useRef } from "react";
 
-
 const Navbar = () => {
     const SearchBar = useRef<HTMLInputElement>(null);
 

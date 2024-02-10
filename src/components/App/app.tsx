@@ -6,7 +6,8 @@ import Forecast from "../dashboard/forecast/forecast";
 
 import { useGeolocated } from "react-geolocated";
 import { useEffect, useState } from "react";
-import { weather_data } from '../../interfaces';
+import { weather_data, coords } from '../../interfaces';
+import { fetchData } from '../../fetch';
 
 const rand = (min:number, max:number):number => Math.floor(Math.random() * (max - min) + min);
 
@@ -16,9 +17,9 @@ const initialclouds = (n:number) => {
     return clouds;
 }
 
+let updateCoords = true;
 const App = () => {
-    let coordinates = { latitude: 45.464098, longitude: 9.191926}; // default coordinates
-
+    const [coordinates, setCoordinates] = useState<coords>(); 
     const [weatherData, setWeatherData] = useState({});
     const [clouds, setClouds] = useState(initialclouds(7));
 
@@ -29,14 +30,18 @@ const App = () => {
         },
         userDecisionTimeout: 5000,
     });
-
-
-    if (isGeolocationAvailable && isGeolocationEnabled) 
-        coordinates = { 
-            latitude: coords?.latitude || 45.464098,
-            longitude: coords?.longitude || 9.191926
-        };
-
+    
+    if (isGeolocationAvailable && isGeolocationEnabled && updateCoords && coords) {
+        updateCoords = false;
+        setCoordinates({ 
+            latitude: coords?.latitude,
+            longitude: coords?.longitude
+        });
+    } else if (!isGeolocationEnabled && updateCoords) {
+        updateCoords = false;
+        setCoordinates({ latitude: 45.464098, longitude: 9.191926});// Cordinate duomo milano
+    }
+    
     useEffect(() => {
         const interval = setInterval(() => {
             const time =rand(60, 100);
@@ -47,17 +52,14 @@ const App = () => {
             }, time);
         }, 2000);
 
-        const fetchData = async () => {
-            const api = `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current=surface_pressure,temperature_2m,wind_speed_10m,weather_code,cloud_cover,relative_humidity_2m,is_day`
-            
-            const response = await fetch(api);
-            const data = await response.json();
-            setWeatherData(data);
-        }
-        fetchData();
-
+        if (coordinates) 
+            fetchData(
+                `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current=surface_pressure,temperature_2m,wind_speed_10m,weather_code,cloud_cover,relative_humidity_2m,is_day`,
+                setWeatherData
+            );
+        
         return () => clearInterval(interval);
-    }, []);
+    }, [coordinates]);
 
 
     return (<>

@@ -1,25 +1,17 @@
 import { useEffect, useState } from "react";
 import City from "./city";
 import { conversion, weather_data } from "../../../interfaces";
+import { fetchData } from "../../../fetch";
 
-let loadedOnce = false;
 const PopularCities = () => {
     const [CitiesData, setCitiesData] = useState<weather_data[]>();
     
     useEffect(() => {
-        if (loadedOnce) return;
-        
-        const fetchData = async () => {
-            const api = "https://api.open-meteo.com/v1/forecast?latitude=45.4643,51.5085,40.4165,40.7143,48.8534&longitude=9.1895,-0.1257,-3.7026,-74.006,2.3488&current=weather_code,is_day&forecast_days=1";
-            
-            const response = await fetch(api);
-            const data = await response.json();
-            setCitiesData(data);
-        }
-        fetchData()
-
-        loadedOnce = true;
-    });
+        fetchData(
+            "https://api.open-meteo.com/v1/forecast?latitude=45.4643,51.5085,40.4165,40.7143,48.8534&longitude=9.1895,-0.1257,-3.7026,-74.006,2.3488&current=weather_code,is_day&forecast_days=1",
+            setCitiesData
+        )
+    }, []);
 
     const cities = [ "Milan", "London", "Madrid", "New York", "Paris"]
 
