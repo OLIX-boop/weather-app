@@ -3,6 +3,7 @@ import Navbar from "../utility/navbar/navbar";
 import CurrentWeather from "../dashboard/current_weather/currentWeather";
 import PopularCities from "../dashboard/popular_cities/populasCities";
 import Forecast from "../dashboard/forecast/forecast";
+import Chart from "../chart/chart";
 
 import { useGeolocated } from "react-geolocated";
 import { useEffect, useState } from "react";
@@ -54,13 +55,12 @@ const App = () => {
 
         if (coordinates) 
             fetchData(
-                `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current=surface_pressure,temperature_2m,wind_speed_10m,weather_code,cloud_cover,relative_humidity_2m,is_day`,
+                `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current=surface_pressure,temperature_2m,wind_speed_10m,weather_code,cloud_cover,relative_humidity_2m,is_day&hourly=temperature_2m&forecast_days=1`,
                 setWeatherData
             );
         
         return () => clearInterval(interval);
     }, [coordinates]);
-
 
     return (<>
         <div className="background grid max-h-[80vh] w-[70vw] z-10">
@@ -74,8 +74,12 @@ const App = () => {
                         <PopularCities />                                   
                     </div>
                     <div className="dashboard-grid2 grid">
-                        <Forecast coords={coordinates}/>      
-                        <h1>CIAO</h1>                
+                        <Forecast coords={coordinates}/>     
+                        {   
+                            Object.keys(weatherData).length > 0 &&
+                            <Chart data={weatherData as weather_data}/>
+                        } 
+                                       
                     </div>
                 </div>
             </div>
