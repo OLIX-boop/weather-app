@@ -4,6 +4,7 @@ import CurrentWeather from "../dashboard/current_weather/currentWeather";
 import PopularCities from "../dashboard/popular_cities/populasCities";
 import Forecast from "../dashboard/forecast/forecast";
 import Chart from "../chart/chart";
+import Map from "../dashboard/map/map";
 
 import { useGeolocated } from "react-geolocated";
 import { useEffect, useState } from "react";
@@ -41,6 +42,7 @@ const App = () => {
     } else if (!isGeolocationEnabled && updateCoords) {
         updateCoords = false;
         setCoordinates({ latitude: 45.464098, longitude: 9.191926});// Cordinate duomo milano
+        // https://www.google.com/maps/search/?api=1&query=45.464098,9.191926
     }
     
     useEffect(() => {
@@ -70,7 +72,7 @@ const App = () => {
                 <div className="dashboard-vertical-grid grid h-[calc(100%-4vh)]">
                     <div className="dashboard-grid1 grid my-[2vh]">
                     <CurrentWeather data={weatherData as weather_data}/>
-                        <h1>CIAO</h1>                                    
+                        {coordinates && <Map latitude={coordinates.latitude} longitude={coordinates.longitude}></Map>}                              
                         <PopularCities />                                   
                     </div>
                     <div className="dashboard-grid2 grid">
