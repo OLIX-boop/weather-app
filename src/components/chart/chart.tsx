@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { weather_data } from "../../interfaces";
 
 
-const Chart = ({ data }: { data: weather_data }) => {
+const Chart = ({ data }: { data: weather_data }) => { 
   const [options, setOptions] = useState();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Chart = ({ data }: { data: weather_data }) => {
 
   if (options)
     return (
-      <div className="white ml-[1.5vw] p-[.5vh] rounded-[1vw] w-[calc(100%-1.5vw)] h-[100%]">
+      <div className="white ml-[1vw] p-[.5vh] rounded-[1vw] w-[calc(100%-1vw)] h-[100%]">
         <ChartElement
           options={options}
           series={[
