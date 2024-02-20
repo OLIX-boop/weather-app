@@ -25,6 +25,15 @@ interface coords {
   longitude: number;
 }
 
+interface geoCodeItem {
+  latitude: number;
+  longitude: number;
+}
+
+interface geoCode {
+  data: Array<geoCodeItem>;
+}
+
 interface weather_data {
   latitude: number;
   longitude: number;
@@ -66,9 +75,9 @@ interface weather_data {
     temperature_2m_min: Array<number>;
   };
 
-  hourly_units: { 
+  hourly_units: {
     time: string;
-    temperature_2m: string 
+    temperature_2m: string;
   };
 
   hourly: {
@@ -108,5 +117,5 @@ const conversion: { [key: number]: weather } = {
   99: { day: Thunder, night: Thunder, desc: "Thunder" },
 };
 
-export type { weather_data, coords };
+export type { weather_data, coords, geoCode };
 export { conversion };
