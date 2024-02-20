@@ -1,6 +1,6 @@
 ## Weather App ☀️
 
-**A simple and intuitive weather app built with React, Chart.js, and the OpenWeatherMap API**
+**A simple and intuitive weather app built with React, Chart.js, OpenMeteo API and PositionStack API**
 
 **Features:**
 
