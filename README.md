@@ -10,7 +10,7 @@
 *  Interactive charts with Chart.js
 *  OpenWeather API for reliable weather data
 
-** Requirements: **
+**Requirements**
 
 * Node.js
 * npm or yarn
@@ -23,7 +23,7 @@
 4. Open your browser to `http://localhost:3000`
 
 
-** Contributing:**
+**Contributing:**
 
 * If you found this app useful, leave a star ⭐️
 * If you have questions or suggestions, open an issue 
