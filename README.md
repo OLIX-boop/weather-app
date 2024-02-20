@@ -10,14 +10,14 @@
 *  Interactive charts with Chart.js
 *  OpenWeather API for reliable weather data
 
-** Requirements:**
+** Requirements: **
 
 * Node.js
 * npm or yarn
 
 **Getting Started:**
 
-1. Clone this repository: `git clone https://github.com/username/weather-app.git`
+1. Clone this repository: `git clone https://github.com/OLIX-boop/weather-app.git`
 2. Install the dependencies: `npm install` or `yarn install`
 3. Start the app in development mode: `npm start` or `yarn start`
 4. Open your browser to `http://localhost:3000`
