@@ -9,6 +9,7 @@
 *  Search for cities around the world
 *  Interactive charts with Chart.js
 *  OpenWeather API for reliable weather data
+*  PositionStack API for geocoding
 
 **Requirements**
 
@@ -36,3 +37,4 @@
 * OpenWeatherMap API: [https://openweathermap.org/api](https://openweathermap.org/api)
 * React: [https://reactjs.org/](https://reactjs.org/)
 * Chart.js: [https://www.chartjs.org/](https://www.chartjs.org/)
+* PositionStack: [https://positionstack.com/](https://positionstack.com/)
