@@ -3,7 +3,7 @@ import Navbar from "../utility/navbar/navbar";
 import CurrentWeather from "../dashboard/current_weather/currentWeather";
 import PopularCities from "../dashboard/popular_cities/populasCities";
 import Forecast from "../dashboard/forecast/forecast";
-import Chart from "../chart/chart";
+import ChartElement from "../chart/chart";
 import Map from "../dashboard/map/map";
 
 import { useGeolocated } from "react-geolocated";
@@ -89,7 +89,7 @@ const App = () => {
                         <Forecast coords={coordinates}/>     
                         {   
                             Object.keys(weatherData).length > 0 &&
-                            <Chart data={weatherData as weather_data}/>
+                            <ChartElement data={weatherData as weather_data}/>
                         } 
                                        
                     </div>
