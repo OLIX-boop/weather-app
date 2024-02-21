@@ -65,10 +65,13 @@ const App = () => {
     }, [coordinates]);
 
     const fetchCoords = async (value:string) => {
-        const api = `http://api.positionstack.com/v1/forward?access_key=b2d28d65b7fcbe80b09e31ae58b423da&query=${value}`;
+        const key = "65d5f608b845e962111973fipd13148";
+        const api = `https://geocode.maps.co/search?q=${value}&api_key=${key}`;
         const response = await fetch(api);
         const data = await response.json();
-        setCoordinates({latitude: data.data[0].latitude, longitude: data.data[0].longitude});
+
+        if (!data || data.length < 1) return;
+        setCoordinates({latitude: data[0].lat, longitude: data[0].lon});
     };
 
     return (<>
