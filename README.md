@@ -1,6 +1,6 @@
 ## Weather App ☀️
 
-**A simple and intuitive weather app built with React, Chart.js, OpenMeteo API and PositionStack API**
+**A simple and intuitive weather app built with React, Chart.js, OpenMeteo API and GeoCode API**
 
 **Features:**
 
@@ -37,4 +37,4 @@
 * OpenWeatherMap API: [https://openweathermap.org/api](https://openweathermap.org/api)
 * React: [https://reactjs.org/](https://reactjs.org/)
 * Chart.js: [https://www.chartjs.org/](https://www.chartjs.org/)
-* PositionStack: [https://positionstack.com/](https://positionstack.com/)
+* Geocode: [https://geocode.maps.co/](https://geocode.maps.co/)
