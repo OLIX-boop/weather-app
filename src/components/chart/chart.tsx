@@ -1,4 +1,3 @@
-//import ChartElement from "react-apexcharts";
 //import { useState, useEffect } from "react";
 import { weather_data } from "../../interfaces";
 
@@ -6,9 +5,19 @@ import { Line } from 'react-chartjs-2';
 import { registerables, Chart } from "chart.js";
 Chart.register(...registerables);
 
+interface context {
+  chart: {
+    ctx: { 
+      createLinearGradient: (a:number, b:number, c:number, d:number) => CanvasGradient;
+      addColorStop: (a:number, b:string) => void;
+    };
+    chartArea: {top: number, bottom: number}
+  }
+}
+
 const ChartElement = ({ data }: { data: weather_data }) => { 
 
-  const scaleMinValue = Math.min(...data.hourly.temperature_2m)-3;
+  const scaleMinValue = Math.min(...data.hourly.temperature_2m)-1;
   const scaleMaxValue = Math.max(...data.hourly.temperature_2m)+1;
   const options = {
     responsive: true,
@@ -47,16 +56,13 @@ const ChartElement = ({ data }: { data: weather_data }) => {
           fill: true,
           label: 'Temperature',
           data: data.hourly.temperature_2m,
+          tension: .5,
           borderColor: 'rgba(224, 241, 255,0.5)',
-          backgroundColor: (context) => {
+          backgroundColor: (context:context) => {
             const bgColor= [
-              '#76dfe8',
-              '#96bad9',
-              '#96bad9',
-              '#96bad9',
-              '#96bad9',
-              '#96bad9',
-              'rgba(255,255,255,0.1)',
+              '#00e3a7',
+              '#00e3a7',
+              '#0089db',
             ];
             if (!context.chart.chartArea) return;
             
@@ -65,8 +71,7 @@ const ChartElement = ({ data }: { data: weather_data }) => {
             const colorTranches = 1 / bgColor.length;
 
             for (let i = 0; i < bgColor.length; i++) 
-              gradientBg.addColorStop(0 + i * colorTranches, bgColor[i])
-            
+              gradientBg.addColorStop(0 + i * colorTranches, bgColor[i]);
   
             return gradientBg;
           },
