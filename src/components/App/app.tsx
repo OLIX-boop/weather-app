@@ -71,7 +71,6 @@ const App = () => {
                             Object.keys(weatherData).length > 0 &&
                             <ChartElement data={weatherData as weather_data}/>
                         } 
-                                       
                     </div>
                 </div>
             </div>
